@@ -42,8 +42,9 @@ def start(message):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("cat_"))
 def handle_category(call):
+    """Обработка ввода суммы"""
     category = call.data[4:]  # вырезаем "cat_"
-    user_id = call.from_user.id
+    user_id = call.from_user.username #в id запишем логин с тг
 
     user_states[user_id] = {'state': 'waiting_for_amount', 'category': category}
 
@@ -56,6 +57,7 @@ def handle_category(call):
 
 @bot.message_handler(func=lambda m: True)
 def handle_message(message):
+
     user_id = message.from_user.id
     state = user_states.get(user_id)
 
